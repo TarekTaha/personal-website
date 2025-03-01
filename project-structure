@@ -1,0 +1,26 @@
+tarek-taha-website/
+├── public/
+│   ├── images/
+│   │   └── profile-photo.jpg  # Your professional photo
+├── src/
+│   ├── components/
+│   │   ├── Header.jsx
+│   │   ├── Footer.jsx
+│   │   ├── SocialLinks.jsx
+│   │   ├── PublicationsList.jsx
+│   │   ├── YouTubeEmbed.jsx
+│   │   └── Layout.jsx
+│   ├── pages/
+│   │   ├── Home.jsx
+│   │   ├── About.jsx
+│   │   ├── Publications.jsx
+│   │   ├── Projects.jsx
+│   │   └── Contact.jsx
+│   ├── styles/
+│   │   ├── theme.js
+│   │   └── GlobalStyles.js
+│   ├── utils/
+│   │   └── api.js
+│   ├── App.jsx
+│   └── main.jsx
+└── index.html 
