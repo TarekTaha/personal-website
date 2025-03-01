@@ -10,20 +10,25 @@ const api = axios.create({
 
 // Publications API
 export const publicationsApi = {
-  // Fetch publications from Google Scholar using SerpAPI
+  // Fetch publications from Google Scholar using a CORS proxy
   fetchFromGoogleScholar: async (authorId = '0qKYbyAAAAAJ') => {
     try {
-      // Using SerpAPI (requires subscription)
-      const apiKey = process.env.REACT_APP_SERPAPI_KEY;
+      const apiKey = "f088d49cb8b0456df4374b5daaadcf116f0418e1fb6a4e4ae3f55dc2de25f4d8";
       
-      if (!apiKey) {
-        console.error('SerpAPI key not found');
+      // Use a CORS proxy
+      const corsProxy = 'https://corsproxy.io/?';
+      const targetUrl = `https://serpapi.com/search.json?engine=google_scholar_author&author_id=${authorId}&api_key=${apiKey}`;
+      
+      console.log('Fetching from SerpAPI via CORS proxy...');
+      const response = await axios.get(corsProxy + encodeURIComponent(targetUrl));
+      
+      console.log('SerpAPI response via CORS proxy:', response.data);
+      
+      // Check if the response contains articles
+      if (!response.data.articles || !Array.isArray(response.data.articles)) {
+        console.error('Invalid response format from SerpAPI:', response.data);
         return [];
       }
-      
-      const response = await axios.get(
-        `https://serpapi.com/search.json?engine=google_scholar_author&author_id=${authorId}&api_key=${apiKey}`
-      );
       
       // Transform the data to our format
       const publications = response.data.articles.map(article => ({
@@ -40,6 +45,9 @@ export const publicationsApi = {
       return publications;
     } catch (error) {
       console.error('Error fetching Google Scholar publications:', error);
+      if (error.response) {
+        console.error('SerpAPI error response:', error.response.data);
+      }
       return [];
     }
   },

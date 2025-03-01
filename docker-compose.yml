@@ -11,9 +11,6 @@ services:
     restart: unless-stopped
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
-    environment:
-      - REACT_APP_SERPAPI_KEY=f088d49cb8b0456df4374b5daaadcf116f0418e1fb6a4e4ae3f55dc2de25f4d8
-      - REACT_APP_API_URL=${REACT_APP_API_URL}
     # If you need environment variables
     # environment:
     #   - REACT_APP_API_URL=https://api.example.com
