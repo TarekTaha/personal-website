@@ -158,7 +158,7 @@ const Home = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Robotics & AI Researcher | Professor | Innovator
+            Associate Professor | Robotics & AI Researcher | Khalifa University
           </HeroSubtitle>
           <ButtonContainer>
             <Link to="/publications">
@@ -196,13 +196,14 @@ const Home = () => {
             <ProfileImage src="/images/profile-photo.jpg" alt="Dr. Tarek Taha" />
             <ProfileContent>
               <ProfileText>
-                Welcome to my professional website. I am Dr. Tarek Taha, a researcher and professor specializing in robotics, 
-                artificial intelligence, and autonomous systems. My research focuses on developing intelligent systems 
-                for real-world applications, particularly in the areas of drone navigation, computer vision, and machine learning.
+                Welcome to my professional website. I am Dr. Tarek Taha, an Associate Professor at Khalifa University, 
+                specializing in robotics, artificial intelligence, and autonomous systems. My research focuses on 
+                developing intelligent systems for real-world applications, particularly in the areas of drone navigation, 
+                computer vision, and machine learning.
               </ProfileText>
               <ProfileText>
-                With over 15 years of experience in academia and industry, I have published numerous papers in top-tier 
-                journals and conferences, and have collaborated with leading research institutions around the world.
+                With extensive experience in academia and industry, I lead research in autonomous robotics, 
+                particularly focusing on aerial vehicles, SLAM, and AI applications in robotics.
               </ProfileText>
               <Link to="/about">
                 <CTAButton secondary whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>

@@ -30,7 +30,7 @@ const Publications = () => {
           <PublicationsTitle>Publications</PublicationsTitle>
           <PublicationsSubtitle>
             My research has been published in leading journals and conferences in the fields of robotics, 
-            artificial intelligence, and autonomous systems.
+            artificial intelligence, and autonomous systems. You can view my publications from Google Scholar or ORCID.
           </PublicationsSubtitle>
         </PublicationsHeader>
         

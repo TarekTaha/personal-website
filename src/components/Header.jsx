@@ -114,7 +114,7 @@ const Header = () => {
   return (
     <HeaderContainer>
       <NavContainer>
-        <Logo to="/">Tarek Taha</Logo>
+        <Logo to="/">Dr. Tarek Taha</Logo>
         
         <MenuButton onClick={toggleMenu}>
           {isMenuOpen ? <FaTimes /> : <FaBars />}
@@ -131,7 +131,7 @@ const Header = () => {
             Publications
           </NavLink>
           <NavLink to="/projects" active={location.pathname === '/projects' ? 1 : 0}>
-            Projects
+            Research
           </NavLink>
           <NavLink to="/contact" active={location.pathname === '/contact' ? 1 : 0}>
             Contact

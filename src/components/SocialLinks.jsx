@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FaLinkedin, FaGithub, FaYoutube, FaOrcid, FaGoogle } from 'react-icons/fa';
+import { FaLinkedin, FaGithub, FaYoutube, FaOrcid, FaGoogle, FaResearchgate } from 'react-icons/fa';
 
 const SocialContainer = styled.div`
   display: flex;
@@ -20,13 +20,13 @@ const SocialLink = styled.a`
 `;
 
 const SocialLinks = ({ footer = false }) => {
-  // Replace these with your actual social media links
+  // Updated with Tarek Taha's actual social media links
   const socialLinks = [
-    { icon: <FaLinkedin />, url: 'https://linkedin.com/in/yourprofile', label: 'LinkedIn' },
-    { icon: <FaGithub />, url: 'https://github.com/yourusername', label: 'GitHub' },
-    { icon: <FaYoutube />, url: 'https://youtube.com/yourchannel', label: 'YouTube' },
-    { icon: <FaOrcid />, url: 'https://orcid.org/your-orcid-id', label: 'ORCID' },
-    { icon: <FaGoogle />, url: 'https://scholar.google.com/citations?user=your-id', label: 'Google Scholar' },
+    { icon: <FaLinkedin />, url: 'https://www.linkedin.com/in/tarek-taha-5791553/', label: 'LinkedIn' },
+    { icon: <FaGithub />, url: 'https://github.com/tarektaha', label: 'GitHub' },
+    { icon: <FaResearchgate />, url: 'https://www.researchgate.net/profile/Tarek-Taha-2', label: 'ResearchGate' },
+    { icon: <FaOrcid />, url: 'https://orcid.org/0000-0002-0777-5913', label: 'ORCID' },
+    { icon: <FaGoogle />, url: 'https://scholar.google.com/citations?user=Jh-V8XQAAAAJ', label: 'Google Scholar' },
   ];
 
   return (

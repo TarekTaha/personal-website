@@ -176,7 +176,7 @@ const About = () => {
           <SectionTitle>Education</SectionTitle>
           <EducationItem>
             <EducationDegree>Ph.D. in Robotics and Autonomous Systems</EducationDegree>
-            <EducationInstitution>University of Technology, Sydney</EducationInstitution>
+            <EducationInstitution>University of Technology, Sydney, Australia</EducationInstitution>
             <EducationDate>2005 - 2009</EducationDate>
             <AboutText>
               My doctoral research focused on vision-based navigation systems for autonomous robots, 
@@ -256,19 +256,19 @@ const About = () => {
         <div>
           <SectionTitle>Professional Experience</SectionTitle>
           <EducationItem>
-            <EducationDegree>Professor of Robotics and AI</EducationDegree>
-            <EducationInstitution>Your Current University/Institution</EducationInstitution>
-            <EducationDate>2015 - Present</EducationDate>
+            <EducationDegree>Associate Professor</EducationDegree>
+            <EducationInstitution>Khalifa University, Abu Dhabi, UAE</EducationInstitution>
+            <EducationDate>2018 - Present</EducationDate>
             <AboutText>
-              Leading the Intelligent Robotics Lab, supervising graduate students, teaching advanced courses in 
-              robotics and AI, and conducting research in autonomous systems.
+              Leading research in autonomous robotics and AI, supervising graduate students, 
+              teaching advanced courses in robotics and AI, and conducting research in autonomous systems.
             </AboutText>
           </EducationItem>
           
           <EducationItem>
-            <EducationDegree>Associate Professor</EducationDegree>
-            <EducationInstitution>Previous University</EducationInstitution>
-            <EducationDate>2010 - 2015</EducationDate>
+            <EducationDegree>Assistant Professor</EducationDegree>
+            <EducationInstitution>Khalifa University, Abu Dhabi, UAE</EducationInstitution>
+            <EducationDate>2011 - 2018</EducationDate>
             <AboutText>
               Established a research program in autonomous robotics, secured external funding, and developed 
               new curriculum in robotics and machine learning.

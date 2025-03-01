@@ -287,7 +287,7 @@ const Contact = () => {
               </ContactInfoIcon>
               <ContactInfoText>
                 <ContactInfoLabel>Email</ContactInfoLabel>
-                <ContactInfoValue>your.email@example.com</ContactInfoValue>
+                <ContactInfoValue>tarek.taha@ku.ac.ae</ContactInfoValue>
               </ContactInfoText>
             </ContactInfoItem>
             
@@ -308,9 +308,9 @@ const Contact = () => {
               <ContactInfoText>
                 <ContactInfoLabel>Office</ContactInfoLabel>
                 <ContactInfoValue>
-                  Department of Robotics<br />
-                  Your University<br />
-                  City, Country
+                  Department of Electrical Engineering and Computer Science<br />
+                  Khalifa University<br />
+                  Abu Dhabi, UAE
                 </ContactInfoValue>
               </ContactInfoText>
             </ContactInfoItem>

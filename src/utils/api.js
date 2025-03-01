@@ -10,21 +10,42 @@ const api = axios.create({
 
 // Publications API
 export const publicationsApi = {
-  // Fetch publications from Google Scholar
-  fetchFromGoogleScholar: async (authorId) => {
+  // Fetch publications from Google Scholar using SerpAPI
+  fetchFromGoogleScholar: async (authorId = '0qKYbyAAAAAJ') => {
     try {
-      // In a real implementation, you would use a proper API or scraper service
-      // Google Scholar doesn't provide an official API, so you might need a proxy service
-      const response = await api.get(`/google-scholar?author=${authorId}`);
-      return response.data;
+      // Using SerpAPI (requires subscription)
+      const apiKey = process.env.REACT_APP_SERPAPI_KEY;
+      
+      if (!apiKey) {
+        console.error('SerpAPI key not found');
+        return [];
+      }
+      
+      const response = await axios.get(
+        `https://serpapi.com/search.json?engine=google_scholar_author&author_id=${authorId}&api_key=${apiKey}`
+      );
+      
+      // Transform the data to our format
+      const publications = response.data.articles.map(article => ({
+        id: article.article_id || Math.random().toString(36).substr(2, 9),
+        title: article.title,
+        authors: article.authors,
+        venue: article.publication,
+        year: article.year,
+        url: article.link,
+        citations: article.cited_by?.value || 0,
+        type: determinePublicationType(article.publication)
+      }));
+      
+      return publications;
     } catch (error) {
       console.error('Error fetching Google Scholar publications:', error);
-      throw error;
+      return [];
     }
   },
   
   // Fetch publications from ORCID
-  fetchFromOrcid: async (orcidId) => {
+  fetchFromOrcid: async (orcidId = '0000-0001-8267-1681') => {
     try {
       // ORCID provides a public API
       const response = await axios.get(`https://pub.orcid.org/v3.0/${orcidId}/works`, {
@@ -32,10 +53,28 @@ export const publicationsApi = {
           'Accept': 'application/json',
         },
       });
-      return response.data;
+      
+      // Transform ORCID data to our format
+      const publications = response.data.group.map(group => {
+        const work = group['work-summary'][0];
+        const title = work.title?.['title']?.value || 'Untitled';
+        const year = work['publication-date']?.year?.value || '';
+        
+        return {
+          id: work['put-code'],
+          title: title,
+          authors: extractAuthorsFromOrcid(work),
+          venue: extractJournalFromOrcid(work),
+          year: year,
+          url: extractUrlFromOrcid(work),
+          type: determinePublicationTypeFromOrcid(work.type)
+        };
+      });
+      
+      return publications;
     } catch (error) {
       console.error('Error fetching ORCID publications:', error);
-      throw error;
+      return [];
     }
   },
   
@@ -46,10 +85,77 @@ export const publicationsApi = {
       return response.data;
     } catch (error) {
       console.error('Error fetching publications from backend:', error);
-      throw error;
+      return [];
     }
-  },
+  }
 };
+
+// Helper functions for ORCID data extraction
+function extractAuthorsFromOrcid(work) {
+  try {
+    if (work.contributors && work.contributors.contributor) {
+      return work.contributors.contributor
+        .map(c => c['credit-name']?.value || 'Unknown Author')
+        .join(', ');
+    }
+    return 'Unknown Authors';
+  } catch (e) {
+    return 'Unknown Authors';
+  }
+}
+
+function extractJournalFromOrcid(work) {
+  try {
+    return work['journal-title']?.value || 
+           work.type || 
+           'Unknown Publication';
+  } catch (e) {
+    return 'Unknown Publication';
+  }
+}
+
+function extractUrlFromOrcid(work) {
+  try {
+    if (work['external-ids'] && work['external-ids']['external-id']) {
+      const doi = work['external-ids']['external-id'].find(id => id['external-id-type'] === 'doi');
+      if (doi) {
+        return `https://doi.org/${doi['external-id-value']}`;
+      }
+      
+      const url = work['external-ids']['external-id'].find(id => id['external-id-type'] === 'url');
+      if (url) {
+        return url['external-id-value'];
+      }
+    }
+    return '#';
+  } catch (e) {
+    return '#';
+  }
+}
+
+function determinePublicationType(venue) {
+  const venueStr = venue?.toLowerCase() || '';
+  if (venueStr.includes('journal') || venueStr.includes('transactions') || venueStr.includes('letters')) {
+    return 'journal';
+  } else if (venueStr.includes('conference') || venueStr.includes('proceedings') || venueStr.includes('symposium')) {
+    return 'conference';
+  } else if (venueStr.includes('review') || venueStr.includes('survey')) {
+    return 'review';
+  }
+  return 'other';
+}
+
+function determinePublicationTypeFromOrcid(type) {
+  const typeStr = type?.toLowerCase() || '';
+  if (typeStr.includes('journal-article')) {
+    return 'journal';
+  } else if (typeStr.includes('conference') || typeStr.includes('proceedings')) {
+    return 'conference';
+  } else if (typeStr.includes('review') || typeStr.includes('survey')) {
+    return 'review';
+  }
+  return 'other';
+}
 
 // Contact form API
 export const contactApi = {
