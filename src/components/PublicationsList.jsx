@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { FaExternalLinkAlt, FaSpinner, FaGoogle, FaOrcid } from 'react-icons/fa';
+import { FaExternalLinkAlt, FaSpinner, FaGoogle, FaOrcid, FaQuoteRight } from 'react-icons/fa';
 import { publicationsApi } from '../utils/api';
 
 const PublicationsContainer = styled.div`
@@ -44,6 +44,18 @@ const PublicationYear = styled.span`
   border-radius: ${({ theme }) => theme.borderRadius};
   font-size: 0.9rem;
   margin-left: ${({ theme }) => theme.spacing.sm};
+`;
+
+const PublicationCitations = styled.span`
+  background-color: ${({ theme }) => theme.colors.light};
+  color: ${({ theme }) => theme.colors.text};
+  padding: ${({ theme }) => theme.spacing.xs} ${({ theme }) => theme.spacing.sm};
+  border-radius: ${({ theme }) => theme.borderRadius};
+  font-size: 0.9rem;
+  margin-left: ${({ theme }) => theme.spacing.sm};
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 `;
 
 const PublicationLink = styled.a`
@@ -252,6 +264,9 @@ const PublicationsList = () => {
             <PublicationVenue>
               {publication.venue}
               <PublicationYear>{publication.year}</PublicationYear>
+              <PublicationCitations>
+                <FaQuoteRight size={12} /> {publication.citations} citations
+              </PublicationCitations>
             </PublicationVenue>
             <PublicationLink 
               href={publication.url} 

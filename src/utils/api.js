@@ -16,33 +16,67 @@ export const publicationsApi = {
       const apiKey = "f088d49cb8b0456df4374b5daaadcf116f0418e1fb6a4e4ae3f55dc2de25f4d8";
       
       // Use a CORS proxy
-      const corsProxy = 'https://corsproxy.io/?';
-      const targetUrl = `https://serpapi.com/search.json?engine=google_scholar_author&author_id=${authorId}&api_key=${apiKey}`;
+      const corsProxy = 'https://api.allorigins.win/raw?url=';
       
-      console.log('Fetching from SerpAPI via CORS proxy...');
-      const response = await axios.get(corsProxy + encodeURIComponent(targetUrl));
+      // We'll collect all publications here
+      let allPublications = [];
+      let start = 0;
+      let hasMoreResults = true;
       
-      console.log('SerpAPI response via CORS proxy:', response.data);
-      
-      // Check if the response contains articles
-      if (!response.data.articles || !Array.isArray(response.data.articles)) {
-        console.error('Invalid response format from SerpAPI:', response.data);
-        return [];
+      // Make multiple requests to get all publications (paginated)
+      while (hasMoreResults) {
+        console.log(`Fetching publications from start=${start}...`);
+        
+        const targetUrl = `https://serpapi.com/search.json?engine=google_scholar_author&author_id=${authorId}&api_key=${apiKey}&start=${start}`;
+        
+        const response = await axios.get(corsProxy + encodeURIComponent(targetUrl));
+        
+        // Check if the response contains articles
+        if (!response.data.articles || !Array.isArray(response.data.articles)) {
+          console.error('Invalid response format from SerpAPI:', response.data);
+          break;
+        }
+        
+        // Transform the data to our format
+        const publications = response.data.articles.map(article => ({
+          id: article.article_id || Math.random().toString(36).substr(2, 9),
+          title: article.title,
+          authors: article.authors,
+          venue: article.publication,
+          year: article.year ? parseInt(article.year, 10) : 0,
+          url: article.link,
+          citations: article.cited_by?.value || 0,
+          type: determinePublicationType(article.publication)
+        }));
+        
+        // Add to our collection
+        allPublications = [...allPublications, ...publications];
+        
+        // Check if we should continue pagination
+        if (response.data.articles.length < 20) {
+          // Less than 20 results means we've reached the end
+          hasMoreResults = false;
+        } else {
+          // Move to the next page (each page has 20 items)
+          start += 20;
+          
+          // Add a small delay to avoid rate limiting
+          await new Promise(resolve => setTimeout(resolve, 500));
+        }
       }
       
-      // Transform the data to our format
-      const publications = response.data.articles.map(article => ({
-        id: article.article_id || Math.random().toString(36).substr(2, 9),
-        title: article.title,
-        authors: article.authors,
-        venue: article.publication,
-        year: article.year,
-        url: article.link,
-        citations: article.cited_by?.value || 0,
-        type: determinePublicationType(article.publication)
-      }));
+      // Sort publications by year (newest first)
+      allPublications.sort((a, b) => {
+        // First by year (descending)
+        if (b.year !== a.year) {
+          return b.year - a.year;
+        }
+        // If same year, sort by citations (descending)
+        return b.citations - a.citations;
+      });
       
-      return publications;
+      console.log(`Total publications fetched: ${allPublications.length}`);
+      return allPublications;
     } catch (error) {
       console.error('Error fetching Google Scholar publications:', error);
       if (error.response) {

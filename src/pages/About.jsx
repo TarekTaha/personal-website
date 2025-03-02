@@ -109,16 +109,30 @@ const SkillsSection = styled.div`
 const SkillsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: ${({ theme }) => theme.spacing.md};
+  gap: ${({ theme }) => theme.spacing.lg};
 `;
 
 const SkillCategory = styled.div`
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
+  background-color: white;
+  padding: ${({ theme }) => theme.spacing.md};
+  border-radius: ${({ theme }) => theme.borderRadius};
+  box-shadow: ${({ theme }) => theme.boxShadow};
 `;
 
 const SkillCategoryTitle = styled.h3`
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
+  margin-bottom: ${({ theme }) => theme.spacing.md};
   color: ${({ theme }) => theme.colors.primary};
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 30px;
+    height: 2px;
+    background-color: ${({ theme }) => theme.colors.accent};
+  }
 `;
 
 const SkillList = styled.ul`
@@ -128,8 +142,8 @@ const SkillList = styled.ul`
 
 const SkillItem = styled.li`
   margin-bottom: ${({ theme }) => theme.spacing.xs};
-  padding-left: ${({ theme }) => theme.spacing.sm};
   position: relative;
+  padding-left: ${({ theme }) => theme.spacing.md};
   
   &::before {
     content: '•';
@@ -145,7 +159,9 @@ const About = () => {
       <div className="container">
         <AboutHeader>
           <AboutTitle>About Me</AboutTitle>
-          <AboutSubtitle>Researcher, Professor, and Innovator in Robotics & AI</AboutSubtitle>
+          <AboutSubtitle>
+            Associate Professor of Robotics and AI at Khalifa University
+          </AboutSubtitle>
           <SocialLinks />
         </AboutHeader>
         
@@ -153,21 +169,14 @@ const About = () => {
           <ProfileImage src="/images/profile-photo.jpg" alt="Dr. Tarek Taha" />
           <ProfileContent>
             <AboutText>
-              I am Dr. Tarek Taha, a professor and researcher specializing in robotics, artificial intelligence, 
-              and autonomous systems. With a passion for developing intelligent systems that can operate in 
-              complex environments, my research focuses on the intersection of computer vision, machine learning, 
-              and control systems.
+              I am an Associate Professor at Khalifa University in Abu Dhabi, UAE, specializing in Robotics and Artificial Intelligence. 
+              My research focuses on developing intelligent robotic systems with applications in aerial robotics, autonomous navigation, 
+              and machine learning.
             </AboutText>
             <AboutText>
-              Currently, I serve as a Professor at [Your University/Institution], where I lead the 
-              Intelligent Robotics Lab. My team and I work on cutting-edge research projects in drone navigation, 
-              robot learning, and human-robot interaction.
-            </AboutText>
-            <AboutText>
-              Throughout my career, I have published over 50 papers in top-tier journals and conferences, 
-              secured multiple research grants, and collaborated with leading institutions and industry partners 
-              worldwide. I am committed to advancing the field of robotics and AI through innovative research 
-              and education.
+              With over 15 years of experience in academia and industry, I lead research in autonomous systems, 
+              particularly focusing on unmanned aerial vehicles (UAVs), simultaneous localization and mapping (SLAM), 
+              and AI applications in robotics.
             </AboutText>
           </ProfileContent>
         </ProfileSection>
@@ -176,30 +185,29 @@ const About = () => {
           <SectionTitle>Education</SectionTitle>
           <EducationItem>
             <EducationDegree>Ph.D. in Robotics and Autonomous Systems</EducationDegree>
-            <EducationInstitution>University of Technology, Sydney, Australia</EducationInstitution>
-            <EducationDate>2005 - 2009</EducationDate>
+            <EducationInstitution>University of Technology Sydney (UTS)</EducationInstitution>
+            <EducationDate>2006 - 2009</EducationDate>
             <AboutText>
-              My doctoral research focused on vision-based navigation systems for autonomous robots, 
-              developing novel algorithms for simultaneous localization and mapping (SLAM) in dynamic environments.
+              Focused on autonomous navigation of mobile robots in partially-known environments, developing novel 
+              approaches for robot localization and mapping.
             </AboutText>
           </EducationItem>
           
           <EducationItem>
-            <EducationDegree>M.Sc. in Computer Engineering</EducationDegree>
-            <EducationInstitution>Technical University of Munich</EducationInstitution>
-            <EducationDate>2003 - 2005</EducationDate>
+            <EducationDegree>M.Sc. in Computer Science</EducationDegree>
+            <EducationInstitution>University of Technology Sydney (UTS)</EducationInstitution>
+            <EducationDate>2004 - 2006</EducationDate>
             <AboutText>
-              Specialized in embedded systems and computer vision, with a thesis on real-time image processing 
-              for mobile robots.
+              Specialized in artificial intelligence and robotics, with a focus on computational intelligence and machine learning.
             </AboutText>
           </EducationItem>
           
           <EducationItem>
-            <EducationDegree>B.Sc. in Electrical Engineering</EducationDegree>
-            <EducationInstitution>Cairo University</EducationInstitution>
+            <EducationDegree>B.Sc. in Computer Engineering</EducationDegree>
+            <EducationInstitution>University of Aleppo</EducationInstitution>
             <EducationDate>1999 - 2003</EducationDate>
             <AboutText>
-              Graduated with honors, focusing on control systems and digital signal processing.
+              Graduated with honors, focusing on computer systems and embedded programming.
             </AboutText>
           </EducationItem>
         </EducationSection>
@@ -210,11 +218,11 @@ const About = () => {
             <SkillCategory>
               <SkillCategoryTitle>Robotics</SkillCategoryTitle>
               <SkillList>
-                <SkillItem>Robot Navigation</SkillItem>
-                <SkillItem>Path Planning</SkillItem>
+                <SkillItem>Autonomous Navigation</SkillItem>
                 <SkillItem>SLAM</SkillItem>
-                <SkillItem>Drone Systems</SkillItem>
-                <SkillItem>Control Systems</SkillItem>
+                <SkillItem>Aerial Robotics (UAVs)</SkillItem>
+                <SkillItem>Path Planning</SkillItem>
+                <SkillItem>Robot Perception</SkillItem>
               </SkillList>
             </SkillCategory>
             
@@ -234,8 +242,8 @@ const About = () => {
               <SkillList>
                 <SkillItem>Python</SkillItem>
                 <SkillItem>C++</SkillItem>
-                <SkillItem>MATLAB</SkillItem>
                 <SkillItem>ROS</SkillItem>
+                <SkillItem>MATLAB</SkillItem>
                 <SkillItem>TensorFlow/PyTorch</SkillItem>
               </SkillList>
             </SkillCategory>
@@ -262,6 +270,7 @@ const About = () => {
             <AboutText>
               Leading research in autonomous robotics and AI, supervising graduate students, 
               teaching advanced courses in robotics and AI, and conducting research in autonomous systems.
+              Director of the Autonomous Robotics and Human-Machine Interaction Laboratory.
             </AboutText>
           </EducationItem>
           
@@ -271,16 +280,18 @@ const About = () => {
             <EducationDate>2011 - 2018</EducationDate>
             <AboutText>
               Established a research program in autonomous robotics, secured external funding, and developed 
-              new curriculum in robotics and machine learning.
+              new curriculum in robotics and machine learning. Led multiple research projects in UAV navigation
+              and autonomous systems.
             </AboutText>
           </EducationItem>
           
           <EducationItem>
-            <EducationDegree>Research Scientist</EducationDegree>
-            <EducationInstitution>Research Institute</EducationInstitution>
-            <EducationDate>2009 - 2010</EducationDate>
+            <EducationDegree>Research Fellow</EducationDegree>
+            <EducationInstitution>University of Technology Sydney, Australia</EducationInstitution>
+            <EducationDate>2009 - 2011</EducationDate>
             <AboutText>
-              Worked on industry-funded projects in autonomous navigation systems for unmanned aerial vehicles.
+              Conducted research in autonomous navigation systems for mobile robots and unmanned aerial vehicles.
+              Collaborated on industry-funded projects and published in top-tier robotics journals and conferences.
             </AboutText>
           </EducationItem>
         </div>

@@ -7,7 +7,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 
-# Copy source code
+# Copy source code and public files
 COPY . .
 
 # Build the application
@@ -21,6 +21,12 @@ COPY --from=build /app/dist /usr/share/nginx/html
 
 # Copy custom nginx config for SPA routing
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Explicitly copy favicon files to ensure they're included
+COPY --from=build /app/public/favicon.ico /usr/share/nginx/html/
+COPY --from=build /app/public/logo192.png /usr/share/nginx/html/
+COPY --from=build /app/public/logo512.png /usr/share/nginx/html/
+COPY --from=build /app/public/manifest.json /usr/share/nginx/html/
 
 # Expose port 80
 EXPOSE 80
